@@ -3,14 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WFramework.Common;
+using Framework.Common;
 
 namespace PureMVC.Pattern
 {
     /// <summary>
     /// Manage all observers
     /// </summary>
-    public class Observers : BaseSingleton<Observers, IObservers>, IObservers
+    public class Observers : BaseSingleton<Observers>
     {
         protected IDictionary<string, IList<IObserver>> observerMap;
         //avoid synchronic problems

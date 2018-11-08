@@ -5,23 +5,30 @@ using UnityEngine;
 using PureMVC.Interfaces;
 using PureMVC.Core;
 using PureMVC.Pattern;
-
+using Framework.Common;
+using UnityEngine.UI;
+using Google.Protobuf.Client;
 public class test : MonoBehaviour
 {
     IFacade facade;
+    IResourceLoader resLoader;
+    public GameObject cube;
+
     private void Start() 
     {
-        facade = Facade.Instance;
-        // IProxy proxy = new testProxy("proxy");
-        // facade.RegisterProxy(proxy);
-        // IMediator mediator = new testMediator("mediator");
-        // facade.RegisterMediator(mediator);
-        // testMediator tM = facade.RetrieveMediator("mediator") as testMediator;
-        // tM.Test();
+        resLoader = ResourceLoaderSingleton.Instance;
+        var loader = resLoader.LoadBundle("test.mat");
+        var loader0 = resLoader.LoadBundle("image.png");
+        if (loader.ResultObj != null)
+        {
+            cube.GetComponent<Renderer>().material = loader.ResultObj as Material;
+        }
+            
+        else
+            Debug.Log("asset is null");
     }
 
-    void Foo(INotification notification)
+    public void OnClick()
     {
-        Debug.Log("Foo");
     }
 }

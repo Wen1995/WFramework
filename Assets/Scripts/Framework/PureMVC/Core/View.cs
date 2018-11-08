@@ -2,21 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WFramework.Common;
+using Framework.Common;
 using PureMVC.Core;
 using PureMVC.Pattern;
 using System;
 
 namespace PureMVC.Core
 {
-    public class View : BaseSingleton<View, IView>, IView
+    public class View : BaseSingleton<View>
     {
         IObservers observers;
         private readonly IDictionary<string, IMediator> mediatorMap;
 
         protected View()
         {
-            observers = Observers.Instance;
+            observers = Observers.Instance as IObservers;
             mediatorMap = new Dictionary<string, IMediator>();
         }
 

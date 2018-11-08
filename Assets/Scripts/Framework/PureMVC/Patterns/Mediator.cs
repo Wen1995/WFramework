@@ -31,7 +31,7 @@ namespace PureMVC.Pattern
 		public Mediator(string mediatorName)
 		{
 			mMediatorName = mediatorName;
-            facade = Facade.Instance;
+            facade = Facade.Instance as IFacade;
 		}
 
 		public Mediator(string mediatorName, object viewComponent)

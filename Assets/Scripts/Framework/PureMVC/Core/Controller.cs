@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using PureMVC.Interfaces;
 using PureMVC.Pattern;
-using WFramework.Common;
+using Framework.Common;
 
 namespace PureMVC.Core
 {
-    public class Controller : BaseSingleton<Controller, IController>, IController
+    public class Controller : BaseSingleton<Controller>
     {
         protected static IController instance;
         protected IView view;
@@ -20,7 +20,7 @@ namespace PureMVC.Core
         /// </summary>
         protected Controller()
         {
-            observers = Observers.Instance;
+            observers = Observers.Instance as IObservers;
             commandMap = new Dictionary<string, Func<ICommand>>();
         }
 

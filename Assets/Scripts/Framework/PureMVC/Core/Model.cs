@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WFramework.Common;
+using Framework.Common;
 using PureMVC.Interfaces;
 using PureMVC.Pattern;
 
 namespace PureMVC.Core
 {
-    public class Model : BaseSingleton<Model, IModel>, IModel
+    public class Model : BaseSingleton<Model>
     {
 		protected readonly IDictionary<string, IProxy> proxyMap;
 

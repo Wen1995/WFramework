@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using PureMVC.Interfaces;
 using PureMVC.Core;
 using UnityEngine;
-using WFramework.Common;
+using Framework.Common;
 
 namespace PureMVC.Pattern
 {
-    public class Facade : BaseSingleton<Facade, IFacade>, IFacade
+    public class Facade : BaseSingleton<Facade>
     {
         IController mController;
         IView mView;
@@ -30,9 +30,9 @@ namespace PureMVC.Pattern
 
         public Facade()
         {
-            mController = PureMVC.Core.Controller.Instance;
-            mView = PureMVC.Core.View.Instance;
-            mModel = PureMVC.Core.Model.Instance;
+            mController = PureMVC.Core.Controller.Instance as IController;
+            mView = PureMVC.Core.View.Instance as IView;
+            mModel = PureMVC.Core.Model.Instance as IModel;
         }
         public void ExcuteCommand(INotification notification)
         {

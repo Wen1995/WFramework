@@ -28,7 +28,7 @@ namespace Framework.Common
                     {
                         GameObject go = new GameObject(typeof(T).Name);
                         mInstance = go.AddComponent<T>();
-                        mInstance.SendMessage("Init", null, SendMessageOptions.DontRequireReceiver);
+                        //mInstance.SendMessage("Initialize", null, SendMessageOptions.DontRequireReceiver);
                         DontDestroyOnLoad(go);
                     }
                     return mInstance;

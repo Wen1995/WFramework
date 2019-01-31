@@ -8,11 +8,11 @@ using Google.Protobuf.Client;
 
 public class BundleDataInfo
 {
-    public string GUID;
+    public string bundlePath;
     public string assetPath;
-    public BundleDataInfo(string GUID, string assetPath)
+    public BundleDataInfo(string bundlePath, string assetPath)
     {
-        this.GUID = GUID;
+        this.bundlePath = bundlePath;
         this.assetPath = assetPath;
     }
 }
@@ -92,7 +92,7 @@ public class AssetBundleBuild : Editor {
                 if (!bundleDataMap.ContainsKey(GUID))
                 {
                     BundleDataInfo info = new BundleDataInfo(GUID, assetPath.Replace("Assets/ResourcesAssets/", ""));
-                    bundleDataMap.Add(info.GUID, info);
+                    bundleDataMap.Add(info.bundlePath, info);
                 }
 
                 //Get Dependency
@@ -132,7 +132,7 @@ public class AssetBundleBuild : Editor {
                 if(!bundleDataMap.ContainsKey(pair.Key))
                 {
                     BundleDataInfo info = new BundleDataInfo(pair.Key, path.Replace("Assets/ResourcesAssets/", ""));
-                    bundleDataMap.Add(info.GUID, info);
+                    bundleDataMap.Add(info.bundlePath, info);
                 }
             }
         }
@@ -164,21 +164,22 @@ public class AssetBundleBuild : Editor {
     /// </summary>
     public static void BuildBundleInfoProtoFile(string outputPath)
     {
+        //TODO
         outputPath = outputPath + "/ProtoBundleInfos.dat";
         ProtoBundleInfos protoBundleInfos = new ProtoBundleInfos();
         foreach(var pair in bundleDataMap)
         {
-            BundleDataInfo info = pair.Value;
-            protoBundleInfos.BundleInfos.Add(new ProtoBundleInfo{
-                Bundlename = info.GUID,
-                Path = info.assetPath,
-                Version = version
-            });
+           BundleDataInfo info = pair.Value;
+           protoBundleInfos.BundleInfos.Add(new ProtoBundleInfo{
+               BundlePath = info.bundlePath,
+               AssetPath = info.assetPath,
+               Version = version,
+           });
         }
         //Create File
         using(var output = File.Create(outputPath))
         {
-            protoBundleInfos.WriteTo(output);
+           protoBundleInfos.WriteTo(output);
         }
     }
 }

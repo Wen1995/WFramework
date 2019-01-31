@@ -18,19 +18,19 @@ namespace Framework.Common
 			base.Init(url, args);
 			LoaderMode mode = (LoaderMode)args[0];
 			//transform url to bundlename
-			string bundleName = ResourceLoaderSingleton.Instance.GetBundleNameByPath(url);
-			if(bundleName == null)
+			string bundlePath = ResourceLoaderSingleton.Instance.GetBundlePathByPath(url);
+			if(bundlePath == null)
 			{
 				OnError();
 				return;
 			}
-			ResourceLoaderSingleton.Instance.StartCoroutine(LoadAssetBundle(bundleName, mode));
+			ResourceLoaderSingleton.Instance.StartCoroutine(LoadAssetBundle(bundlePath, mode));
 		}
 
-		private IEnumerator LoadAssetBundle(string bundleName, LoaderMode mode)
+		private IEnumerator LoadAssetBundle(string bundlePath, LoaderMode mode)
 		{
 			//Load bytes via HotBytesLoader
-			var bytesLoader = HotBytesLoader.Load(bundleName, mode);
+			var bytesLoader = HotBytesLoader.Load(bundlePath, mode);
 			while(!bytesLoader.IsComplete) yield return null;
 			byte[] btsData = bytesLoader.Bytes;
 			//Parse bytes, get assetbundle
